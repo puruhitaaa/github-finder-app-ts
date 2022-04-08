@@ -1,9 +1,9 @@
-import { UserResults } from '../../components';
+import { UserResults, UserSearch } from '../../components';
 
 const Home = () => {
   return (
     <>
-      {/* Search comp */}
+      <UserSearch />
       <UserResults />
     </>
   );
