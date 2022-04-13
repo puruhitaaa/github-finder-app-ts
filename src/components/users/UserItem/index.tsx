@@ -20,7 +20,7 @@ const UserItem = ({ user }: IUserItem) => {
         <div>
           <h2 className="card-title">{user.login}</h2>
           <Link
-            to={`/users/${user.login}`}
+            to={`/user/${user.login}`}
             className="text-base-content text-opacity-40"
           >
             Visit Profile
