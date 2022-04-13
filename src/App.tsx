@@ -1,16 +1,21 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { Footer, Navbar } from './components';
+import { Alert, Footer, Navbar } from './components';
+import { useAlert } from './hooks/useAlert';
 import { AboutPage, HomePage, NotFoundPage } from './pages';
-import { GithubProvider } from './context/github/GithubContext';
-import Compose from './helpers/CombineProviders';
 
 const App = () => {
+  const { msg, type } = useAlert((state) => ({
+    msg: state.msg,
+    type: state.type,
+  }));
+
   return (
-    <Compose components={[BrowserRouter, GithubProvider]}>
+    <BrowserRouter>
       <div className="flex flex-col justify-between h-screen">
         <Navbar />
 
         <main className="container mx-auto px-3 pb-12">
+          {msg !== '' || type !== '' ? <Alert /> : null}
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
@@ -21,7 +26,7 @@ const App = () => {
 
         <Footer />
       </div>
-    </Compose>
+    </BrowserRouter>
   );
 };
 

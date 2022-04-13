@@ -1,8 +1,15 @@
-import { ChangeEvent, FormEvent, useState, useContext } from 'react';
-import { GithubContext } from '../../../context/github/GithubContext';
+import { ChangeEvent, FormEvent, useState } from 'react';
+import { useAlert } from '../../../hooks/useAlert';
+import { useGithub } from '../../../hooks/useGithub';
 
 const UserSearch = () => {
-  const { users, searchUsers, clearUsers } = useContext(GithubContext);
+  const { users, searchUsers, clearUsers } = useGithub((state) => ({
+    users: state.users,
+    searchUsers: state.searchUsers,
+    clearUsers: state.clearUsers,
+  }));
+  const setAlert = useAlert((state) => state.setAlert);
+
   const [text, setText] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
@@ -12,10 +19,9 @@ const UserSearch = () => {
     e.preventDefault();
 
     if (text === '') {
-      alert('Please enter something');
+      setAlert('Please enter something', 'error');
     } else {
       searchUsers(text);
-
       setText('');
     }
   };
