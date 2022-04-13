@@ -2,19 +2,24 @@ import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa';
 import { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useGithub } from '../../hooks/useGithub';
-import { Spinner } from '../../components';
+import { RepoList, Spinner } from '../../components';
 
 const User = () => {
-  const { id = '' } = useParams();
-  const { getUser, user, isLoading } = useGithub((state) => ({
-    getUser: state.getUser,
-    user: state.user,
-    isLoading: state.isLoading,
-  }));
+  const { username = '' } = useParams();
+  const { getUser, user, isLoading, getUserRepos, repos } = useGithub(
+    (state) => ({
+      getUser: state.getUser,
+      user: state.user,
+      isLoading: state.isLoading,
+      getUserRepos: state.getUserRepos,
+      repos: state.repos,
+    })
+  );
 
   useEffect(() => {
-    getUser(id);
-  }, [getUser, id]);
+    getUser(username);
+    getUserRepos(username);
+  }, [getUser, getUserRepos, username]);
 
   return !isLoading ? (
     <>
@@ -140,6 +145,8 @@ const User = () => {
             </div>
           </div>
         </div>
+
+        <RepoList repos={repos} />
       </div>
     </>
   ) : (

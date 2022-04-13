@@ -15,3 +15,14 @@ export interface IUser {
   public_repos?: string;
   public_gists?: string;
 }
+
+export type Repo = {
+  id?: string;
+  name?: string;
+  description?: string;
+  html_url?: string;
+  forks?: string;
+  open_issues?: string;
+  watchers_count?: string;
+  stargazers_count?: string;
+};
