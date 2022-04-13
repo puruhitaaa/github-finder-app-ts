@@ -1,4 +1,5 @@
 # Github Finder App (TypeScript Version)
+Original version by Brad Traversy : https://github.com/bradtraversy/github-finder-app
 
 A github profile finder app made with :
 - TypeScript v4.6.3
